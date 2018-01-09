@@ -3,12 +3,67 @@ title: "R Notebook"
 output: html_notebook
 ---
 
-This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+Comprehension Check
+Below are the first four rows of data from a survey of incoming university freshmen:
+ID	Ethnicity	Major	Freshman Orientation	HS Sports	Math GPA
+001	White	Biology	Yes	1	3.1
+002	Asian	Art History	No	0	3.4
+003	Hispanic	Computer Science	Yes	0	3.9
+004	Hispanic	Undecided	Yes	1	2.3
+problem
+4/4 points (graded)
+The ethnicity of each student is what kind of variable?
+identifier variable
+*categorical (qualitative) correct
+numerical (quantitative)
+cannot be determined without additional information
+ The Math GPA for each student is what kind of variable?
+identifier variable
+categorical (qualitative)
+*numerical (quantitative) correct
+cannot be determined without additional information
+ Each student was asked, "Did you play sports in high school?" Their responses were recorded as "1" for YES and "0" for NO. What kind of data do you have now?
+8It is still categorical data, even though numbers are used to represent categories. correct
+It is numerical data, because 0 and 1 are numbers.
+It is no longer data. The data has been modified from its original format.
+It is numerical data because we can count how many 0's and 1's we have, and you can't do that with categorical data.
+ Which of the following would NOT be considered raw data?
+Height of each skyscraper in Manhattan.
+Highest grade level completed by each of 16 taxicab drivers in Queens.
+*Average age of ballet dancers attending The Juilliard School. correct
+Highest temperature recorded each day of June 2014 in the Bronx.
 
-Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
 
-```{r}
-plot(cars)
+Below are examples of data:
+Jersey numbers of five players on an NBA basketball team
+Length (in seconds) of each song on a Michael Jackson album.
+Top five best‐selling books on the New York Times bestsellers list.
+Height of children in a kindergarten class
+problem
+2/2 points (graded)
+Only one of the following scales of measurement is not represented above. Which is it?
+ordinal
+*interval correct
+nominal
+ratio
+ Which of the following is an example of interval data being converted to ordinal data?
+Finish times for a marathon reported as first, second and third place, etc.
+Age recorded as infant, youth, adult, and senior.
+Winter temperatures graphed in categories of 30‐39, 40‐49, 50‐59, and 60‐69 degree Fahrenheit.
+*Happiness scores (measured on a scale of 1‐10) recorded as not happy, happy, and very happy. correct
+```{r importingDataFrames}
+library(SDSFoundations)
+library(ggplot2)
+BikeData <- BikeData
+
+head(BikeData)
+
+table(BikeData$cyc_freq)
+
+bikePlot <- ggplot(BikeData, 
+                   aes(x = distance, y = time))
+bikePlot +
+        geom_point(aes(col = gender))
 ```
 
 Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
