@@ -1,71 +1,498 @@
 ---
-title: "R Notebook"
-output: html_notebook
+title: "Statistics UTA"
+output:
+  html_notebook: default
+  html_document: default
 ---
 
-Comprehension Check
-Below are the first four rows of data from a survey of incoming university freshmen:
-ID	Ethnicity	Major	Freshman Orientation	HS Sports	Math GPA
-001	White	Biology	Yes	1	3.1
-002	Asian	Art History	No	0	3.4
-003	Hispanic	Computer Science	Yes	0	3.9
-004	Hispanic	Undecided	Yes	1	2.3
-problem
-4/4 points (graded)
-The ethnicity of each student is what kind of variable?
-identifier variable
-*categorical (qualitative) correct
-numerical (quantitative)
-cannot be determined without additional information
- The Math GPA for each student is what kind of variable?
-identifier variable
-categorical (qualitative)
-*numerical (quantitative) correct
-cannot be determined without additional information
- Each student was asked, "Did you play sports in high school?" Their responses were recorded as "1" for YES and "0" for NO. What kind of data do you have now?
-8It is still categorical data, even though numbers are used to represent categories. correct
-It is numerical data, because 0 and 1 are numbers.
-It is no longer data. The data has been modified from its original format.
-It is numerical data because we can count how many 0's and 1's we have, and you can't do that with categorical data.
- Which of the following would NOT be considered raw data?
-Height of each skyscraper in Manhattan.
-Highest grade level completed by each of 16 taxicab drivers in Queens.
-*Average age of ballet dancers attending The Juilliard School. correct
-Highest temperature recorded each day of June 2014 in the Bronx.
+```{r}
+knitr::opts_chunk$set(echo = "TRUE")
+
+```
 
 
-Below are examples of data:
-Jersey numbers of five players on an NBA basketball team
-Length (in seconds) of each song on a Michael Jackson album.
-Top five best‐selling books on the New York Times bestsellers list.
-Height of children in a kindergarten class
-problem
-2/2 points (graded)
-Only one of the following scales of measurement is not represented above. Which is it?
-ordinal
-*interval correct
-nominal
-ratio
- Which of the following is an example of interval data being converted to ordinal data?
-Finish times for a marathon reported as first, second and third place, etc.
-Age recorded as infant, youth, adult, and senior.
-Winter temperatures graphed in categories of 30‐39, 40‐49, 50‐59, and 60‐69 degree Fahrenheit.
-*Happiness scores (measured on a scale of 1‐10) recorded as not happy, happy, and very happy. correct
+###Comprehension Check
+Below are the first four rows of data from a survey of incoming university freshmen:  
+ID	Ethnicity	Major	Freshman Orientation	HS Sports	Math GPA  
+001	White	Biology	Yes	1	3.1  
+002	Asian	Art History	No	0	3.4  
+003	Hispanic	Computer Science	Yes	0	3.9  
+004	Hispanic	Undecided	Yes	1	2.3  
+
+problem  
+4/4 points (graded)  
+The ethnicity of each student is what kind of variable?  
+identifier variable  
+*categorical (qualitative) correct*  
+numerical (quantitative)  
+cannot be determined without additional information 
+
+ The Math GPA for each student is what kind of variable?  
+identifier variable  
+categorical (qualitative)  
+*numerical (quantitative) correct * 
+cannot be determined without additional information 
+
+ Each student was asked, "Did you play sports in high school?" Their responses were recorded as "1" for YES and "0" for NO. What kind of data do you have now?  
+*It is still categorical data, even though numbers are used to represent categories. correct*  
+It is numerical data, because 0 and 1 are numbers.  
+It is no longer data. The data has been modified from its original format.  
+It is numerical data because we can count how many 0's and 1's we have, and you can't do that with categorical data.  
+
+Which of the following would NOT be considered raw data?  
+Height of each skyscraper in Manhattan.  
+Highest grade level completed by each of 16 taxicab drivers in Queens.  
+*Average age of ballet dancers attending The Juilliard School. correct*   
+Highest temperature recorded each day of June 2014 in the Bronx.  
+
+
+Below are examples of data:  
+Jersey numbers of five players on an NBA basketball team  
+Length (in seconds) of each song on a Michael Jackson album.  
+Top five best‐selling books on the New York Times bestsellers list.  
+Height of children in a kindergarten class  
+problem  
+2/2 points (graded)  
+Only one of the following scales of measurement is not represented above. Which is it?  
+ordinal  
+*interval correct * 
+nominal  
+ratio  
+Which of the following is an example of interval data being converted to ordinal data?  
+Finish times for a marathon reported as first, second and third place, etc.  
+Age recorded as infant, youth, adult, and senior.  
+Winter temperatures graphed in categories of 30‐39, 40‐49, 50‐59, and 60‐69 degree Fahrenheit.  
+*Happiness scores (measured on a scale of 1‐10) recorded as not happy, happy, and very happy. correct * 
+
 ```{r importingDataFrames}
 library(SDSFoundations)
 library(ggplot2)
 BikeData <- BikeData
 
 head(BikeData)
+```
 
+```{r importingDataFrames2}
 table(BikeData$cyc_freq)
+```
 
+```{r importingDataFrames3}
 bikePlot <- ggplot(BikeData, 
                    aes(x = distance, y = time))
 bikePlot +
         geom_point(aes(col = gender))
 ```
 
-Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
+###Indexing data frames
+Viewing a specific variable BikeData[2, 5]
 
-When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
+`r BikeData[2, 5]`
+
+View all rows for one variable BikeData[, 5]
+`BikeData[, 5]`
+
+view counts of the specified variable table(BikeData$gender)
+`r table(BikeData$gender)`
+
+add criteria to the index BikeData$gender == 'F'
+`r BikeData$gender == 'F'`
+
+create an object with all females from the dataset females <- BikeData[BikeData$gender == 'F', ]
+`r females <- BikeData[BikeData$gender == 'F', ]`
+head(females)
+`r head(females)`
+
+gather the female speeds femaleSpeeds <- BikeData\$speed[BikeData$gender == 'F']
+`r femaleSpeeds <- BikeData$speed[BikeData$gender == 'F']`
+
+head(femaleSpeeds)
+`r head(femaleSpeeds)`
+
+mean of female speeds: mean(femaleSpeeds) = `r mean(femaleSpeeds)`
+
+
+###Week 1 Welcome to Pre Lab!
+In 2011, researchers at the Texas Transportation Institute and the Center for Transportation Research at UT Austin ran an advertising campaign aimed at recruiting Austin cyclists to join the South Congress Bike Mapping Project.  As members of the project, cyclists downloaded and used Cycle Tracks, a smartphone app developed by the San Francisco County Transportation Authority to track where people are riding their bikes based on their GPS points.  The goal was to gain new information about bike commuting patterns and this data set is based on the results of the study: 3600 trips tracked from 315 users over a 6 month period.   Data includes distances traveled, speed of travel, and reasons for travel among other variables.
+
+**How many of the cyclists were students, how often did they ride, and what was the average distance they rode?**
+
+####Check the Data
+
+We will always begin by checking the data. Follow the directions below.
+
+Let's begin by examining our data in R.
+
+1. Open RStudio. Make sure you've installed the current version of the SDSFoundations package.
+2. Type library(SDSFoundations) This will automatically load the data for the labs.
+3. Type bike <- BikeData This will assign the data to your Workspace.
+4. Look at the spreadsheet view of the data to answer the following questions.
+
+Alternatively, you can use follow the steps in the "Importing a Data Frame" R tutorial video, and use the BikeData.csv file. (Right-click and "Save As.") Make sure to name the dataframe "bike" when importing.
+
+1. Open RStudio.
+2. Click on "Import Dataset" button at the top of the workspace window. Choose "from text file."
+3. Click on the location of the BikeData.csv file you just downloaded.
+4. Click on the BikeData.csv file. Then, click Upload.
+5. Look at the spreadsheet view of the data to answer the following questions.
+
+Can you locate the answers to these questions by looking at the data frame?
+
+```{r week1DataCheck}
+
+bike <- BikeData
+
+View(bike)
+
+bike[7, "age"]
+
+table(bike[1:10, "cyc_freq"])
+
+bike[bike$gender == 'F',]
+
+str(bike)
+
+table(bike[1:10, "cyc_freq"])
+```
+
+Can you locate the answers to these questions by looking at the data frame?
+
+1a. What is the age of the 7th rider in the dataset?
+
+
+45
+  correct  
+45 
+1b. How many of the first 10 riders in the dataset ride daily?
+
+
+3
+  correct  
+3 
+1c. What is the speed of the first female who cycles less than one time per month (in miles/hour)?
+
+
+8.10
+  correct  
+8.10 
+Submit You have used 1 of 1 attempt Some problems have options such as save, reset, hints, or show answer. These options follow the Submit button.
+
+Show Answer
+Correct (3/3 points) Review
+problem
+3/3 points (graded)
+Check the Variables of Interest 
+
+You will be asked in pre-lab to examine the variables of interest and correctly categorize them. For example:
+
+2a. What type of variable is student?
+categorical  
+2b. What type of variable is cyc_freq?
+categorical  
+2c. What type of variable is distance?
+numerical  
+Submit You have used 1 of 1 attempt Some problems have options such as save, reset, hints, or show answer. These options follow the Submit button.
+
+Show Answer
+Correct (3/3 points) Review
+problem
+1/1 point (graded)
+Reflect on the Method 
+
+You will be asked a few questions about the method you will be using in lab. Since this is a practice lab, we will ask you about R basics.
+
+3. In this lab, we will be creating a new dataset that includes just the student riders and all of their variables. What is the correct terminology for this new dataset?
+
+
+data frame correct
+index
+table
+vector
+
+###Primary Research Question
+**How many of the cyclists were students, how often did they ride, and what was the average distance they rode?**
+
+Let's break this analysis into its required steps:
+
+1. Find the number of students in the dataset.
+2. Pull out the student data into a separate dataframe for analysis.
+3. Make a table to find how often the students ride.
+4. Find the average distance ridden.
+
+```{r week1AnalyzeData}
+
+table(bike$student)
+```
+
+Pull out student data into a new dataframe: student <- bike[bike$student ==1, ]
+`r student <- bike[bike$student ==1, ]`
+
+
+Find how often the students ride, using the new dataframe: table(student$cyc_freq)
+`r table(student$cyc_freq)`
+
+Create a vector for the distance variable: distance <- student$distance
+`r distance <- student$distance`
+
+Find average distance ridden: mean(studentDistance)
+`r mean(distance)`
+
+2. What is the role of the comma?
+*It tells R to include all the variables (columns) for the riders that are students. > correct*
+It tells R to include all the students (rows), beginning with the first one.
+
+3. What does "student" refer to in this line of code?:
+table(student$cyc_freq)
+
+the original variable called "student"
+*the new dataframe called "student" correct*
+
+This line of code creates a vector called "distance:"
+distance <-student$distance
+
+4. What does this vector consist of?
+*It is a string of numbers, each of which is the distance ridden by a student in the dataset. correct*
+It is a matrix of numbers, showing all the distances ridden by each student.
+
+Suppose we have run the following code to try to create a list of the times.
+Read in the dataset and name it bike
+bike<-BikeData
+Create a vector of the times
+rider_times<-bike$times
+Check the contents of our rider_times vector
+rider_times
+
+5. What error has caused the vector of rider_times to be empty? (Examine the data set in R for help.)
+We should have named the vector "time" instead.
+*The variable "times" is not spelled the same way in our datafile. correct*
+We cannot check the contents of vectors in R.
+We cannot use an underscore when naming vectors.
+
+1. How many students are in the dataset? (Hint: Look at the output for table(bike$student).)
+14
+
+2. How many variables are in the new data frame "student"? (Hint: Look in your Workspace for the new dataframe.)
+9
+
+3. We want to know how often the students ride. What is the most frequently observed response?
+Daily correct
+Less than once a month
+Several times per month
+Several times per week
+
+4. How is the vector "distance" described in the workspace?
+9 variables
+14 obs. of 9 variables
+*num[1:14] correct*
+
+5. How far do students ride on average? (Round to the nearest 0.01)
+3.87 miles
+*6.26 miles correct*
+12.9 miles
+
+###Write Your Conclusion
+Congratulations! You have made it to the final part of the Pre-Lab. In this final section, you are asked to write an answer to the Pre-Lab question, using the results of your analysis as support. We will provide you with a template of what that answer should look like. You just need to fill in the blanks.
+
+In this Pre Lab, we examined data on **14**  correct   student riders. Most of the student riders ( a total of **8**   correct   out of **14**   correct   ) rode their bikes   correct   . On average, the students rode about   **6.26** correct   miles on each trip.
+
+
+###LAB
+
+table(bike\$cyc_freq)
+
+`r table(bike$cyc_freq)`
+
+```{r}
+males <- bike[bike$gender == 'M', ]
+females <- bike[bike$gender == 'F', ]
+```
+
+males <- bike[bike\$gender == 'M', ]  
+females <- bike[bike\$gender == 'F', ]
+
+table(males\$cyc_freq)
+`r table(males$cyc_freq)`
+
+```{r dailyInfo}
+
+daily <- bike[bike$cyc_freq == "Daily",]
+dailyF <- daily[daily$gender == 'F', ]
+dailyM <- daily[daily$gender == 'M', ]
+
+dailyFAge <- dailyF$age
+dailyMAge <- dailyM$age
+```
+
+daily <- bike[bike$cyc_freq == "Daily",]  
+dailyF <- daily[daily$gender == 'F', ]  
+dailyM <- daily[daily$gender == 'M', ]
+
+dailyFAge <- dailyF\$age  
+dailyMAge <- dailyM\$age
+
+
+
+mean(dailyFAge): 
+`r mean(dailyFAge)`  
+mean(dailyMAge):
+`r mean(dailyMAge)`  
+table(daily\$gender): `r table(daily$gender)`  
+```{r}
+dailyAge <- daily$age
+```
+
+mean(dailyAge): `r mean(dailyAge)`  
+thirty <- dailyM[dailyM\$age >= 30,]: `r thirty <- dailyM[dailyM$age >= 30,]`
+
+
+###Chapter 2 Readings
+```{r chapter2Readings}
+
+material <- c("Aluminum Cans", "Copper Wire", "Steel Cans", "LDPE Plastics (e.g., trash bags)" , "PET Plastics (e.g., beverage bottles)", "HDPE Plastics (e.g., household cleaner bottles)", "Personal Computers", "Carpet", "Glass", "Corrugated Cardboard", "Newspaper", "Phone Books", "Magazines", "Office Paper")
+
+energy <- c(206, 83, 20, 56, 53, 51, 43, 106, 2, 15, 16, 11, 11, 10)
+
+data <- data_frame(material, energy)
+```
+
+__material__  
+`r material`
+__energy__  
+`r energy`  
+__data__
+`r data`
+
+Frequency Table with arbitrary bins: freqtbl <- ftable(data)
+`r freqtbl <- ftable(data)`
+
+```{r binData}
+##Store range of numerical variable
+rng <- range(energy)
+
+by <- 25
+
+##assign breaks of size 25 to the defined range
+breaks <- seq(min(rng), max(rng) + by, by = by)
+
+##apply the breaks to the numerical variable
+energy.cut <- cut(energy, breaks = breaks, right = FALSE)
+data$bin <- cut(energy, breaks = breaks, right = FALSE)
+```
+
+###Bin the Data
+assign breaks of size 25 to the defined range  
+breaks <- seq(min(rng), max(rng) + by, by = by)
+
+apply the breaks to the numerical variable  
+energy.cut <- cut(energy, breaks = breaks, right = FALSE)  
+data$bin <- cut(energy, breaks = breaks, right = FALSE)
+
+Frequency table with specific bins: table(energy.cut)  
+`r table(energy.cut)`
+
+
+```{r frequencyObject}
+#Assign the frequency table to an object
+energy.freq <- table(energy.cut)
+```
+
+display the frequency table cbind(energy.freq)  
+`r cbind(energy.freq)`
+
+```{r frequencyByHistogram}
+#find frequency from histogram counts as well
+t <- hist(data$energy, breaks = breaks, plot = FALSE)
+
+t$counts
+
+#calculate the relative frequency for each bin
+energy.relfreq <- round(energy.freq/nrow(data), 3)
+
+energy.relfreq
+```
+
+display the frequency and relative frequency: cbind(energy.freq, energy.relfreq)  
+`r cbind(energy.freq, energy.relfreq)`
+
+```{r cumulativeSum}
+energy.cumfreq <- cumsum(energy.freq)
+
+energy.cumrelfreq <- round(energy.cumfreq/nrow(data), 3)
+```
+
+display the frequency, relative frequency, cumulative frequency, and cumulative relative frequency: cbind(energy.freq, energy.relfreq, energy.cumfreq, energy.cumrelfreq)  
+`r cbind(energy.freq, energy.relfreq, energy.cumfreq, energy.cumrelfreq)`
+
+###2.2 Graphs for Categorical Variables
+
+
+```{r categoricalGraphs}
+electronicEquipment <-  c("Cathode Ray Tube (CRT) TV’s", "CRT Monitors", "Printers, Keyboards, Mice", "Desktop Computers", "Laptop Computers", "Projection TV’s", "Cell Phones", "LCD Monitors")
+
+tonsDiscarded <- c(7591.1, 389.8, 324.9, 259.5, 30.8, 132.8, 11.7, 4.9)
+
+catData <- data_frame(electronicEquipment, tonsDiscarded)
+
+catG <- ggplot(data = catData, 
+               aes(x = electronicEquipment, y = tonsDiscarded)
+)
+
+#Display the data in a bar graph
+catD <- catG +
+        geom_col() +
+        ylab("Thousands of Tons Discarded")+
+        xlab("Type of Electronic Equipment") + 
+        theme(axis.text.x = element_text(angle = 75,
+                                         hjust = 1)
+        )
+```
+
+
+__electronic equipment__  
+`r electronicEquipment`
+
+__tons discarded__  
+`r tonsDiscarded`
+
+__categorical data__  
+`r catData`
+
+
+```{r}
+pieData <- catData
+
+pieData$percent <- round(pieData$tonsDiscarded/sum(pieData$tonsDiscarded), 3) * 100
+
+pieData$circle <- round(((pieData$percent/100) * 360), 1)
+
+pie <- ggplot(data = pieData,
+              aes(x = factor(tonsDiscarded),
+                  fill = factor(electronicEquipment)
+                  )
+              ) +
+        geom_bar(width = 1)
+pie + geom_col()
+pie + coord_polar("y", start = 0)
+#This is close bu tnot working and not worth the time to solve right now
+```
+
+```{r barChartPractice}
+
+materials <- c("plastics", "lead", "aluminium", "iron", "copper", "tin", "zinc", "nickel", "barium", "other elements and chemicals")
+
+kilograms <- c(6.21, 1.71, 3.83, 5.54, 2.12, 0.27, 0.60, 0.23, 0.05, 6.44)
+
+dataBar <- data_frame(materials, kilograms)
+
+bar <- dataBar %>% 
+        ggplot(aes(x = materials,
+                   y = kilograms,
+                   fill = materials))
+
+bar + 
+        geom_col() +
+        theme(axis.text.x = element_text(angle = 75,
+                                         hjust = 1)
+        )
+
+```
+
