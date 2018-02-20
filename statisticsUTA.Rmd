@@ -7,6 +7,7 @@ output:
 
 ```{r}
 knitr::opts_chunk$set(echo = "TRUE")
+library(tidyverse)
 
 ```
 
@@ -494,5 +495,101 @@ bar +
                                          hjust = 1)
         )
 
+```
+
+###2.3 Graphs for Quantitative Data
+
+
+####DotCharts, Stem and Leaf
+```{r quantitativeGraphs}
+library(aplpack)
+countries <- c("Estonia", "New Zealand", "Poland", "Cyprus", "Portugal", "United States", "Italy", "Spain", "Australia", "Greece", "Finalnd", "Ireland", "Netherlands", "Sweden", "France", "Germany", "Austria", "Belgium", "Japan")
+paperRecycled <- c(34, 40, 40, 42, 56, 59, 62, 63, 66, 70, 70, 70, 70, 70, 76, 83, 83, 83, 98)
+glassRecyled <- c(4, 21, 27, 34, 39, 41, 44, 56, 56, 56, 59, 64, 72, 76, 81, 86, 96, 98, 100)
+
+recycledPaper <- data_frame(countries, paperRecycled)
+recycledGlass <- data_frame(countries, glassRecyled)
+
+dotchart(recycledPaper$paperRecycled)
+dotchart(recycledGlass$glassRecyled)
+
+stem(recycledPaper$paperRecycled)
+stem(recycledGlass$glassRecyled)
+
+stem.leaf.backback(recycledGlass$glassRecyled, recycledPaper$paperRecycled)
+stem.leaf.backback(recycledGlass$glassRecyled, recycledPaper$paperRecycled, back.to.back = FALSE)
+```
+
+####Histograms
+
+```{r 2.3Histograms}
+
+averageBottles <- c(1,2,3,3,3,4,4,4,4,5,5,5,5,5,5,6,6,6,6,6,6,6,6,7,7,7,7,7,7,7,8,8)
+bottles <- c(1,2,3,4,5,6,7,8)
+
+hist(averageBottles)
+
+bottleBreaks <- seq_len(9)
+
+bottles.cut <- cut(averageBottles, breaks = bottleBreaks, right = FALSE)
+
+bottle.freq <- table(avgBottles.cut)
+
+bottle.relfreq <- round(bottle.freq/length(averageBottles), 2)
+
+bottle.cumfreq <- cumsum(bottle.freq)
+
+bottle.cumrelfreq <- round(bottle.cumfreq/length(averageBottles), 3)
+
+bottleData <- tibble(bottle.freq, bottle.relfreq, bottle.cumfreq, bottle.cumrelfreq)
+
+bottleData$bottle.freq <- as.numeric(bottleData$bottle.freq)
+bottleData$bottle.relfreq <- as.numeric(bottleData$bottle.relfreq)
+
+bottleData
+```
+
+
+####Comprehension Check Chapter 2 Reading
+
+```{r chapter2ReadingProblems}
+countries2 <- c("Estonia", "New Zealand", "Poland", "Cyprus", "Portugal", "United States", "Italy", "Spain", "Australia", "Greece", "Finalnd", "Ireland", "Netherlands", "Sweden", "France")
+
+liters <- c(154.8, 117.0, 109.8, 121.9,117.3,101.8,100.7,67.8,90.1,67.4,63.6,75.3,62.1,74.6,70.4)
+
+chp2 <- tibble(countries2, liters)
+
+chp2Breaks <- seq(min(range(liters)) - 10, max(range(liters)) + 10, by = 10)
+
+chp2.cut <- cut(chp2$liters, breaks = chp2Breaks, right = FALSE)
+
+chp2.freq <- table(chp2.cut)
+
+hist(liters)
+
+#right skewed
+
+material <- c("Aluminum Cans", "Copper Wire", "Steel Cans", "LDPE Plastics (e.g., trash bags)" , "PET Plastics (e.g., beverage bottles)", "HDPE Plastics (e.g., household cleaner bottles)", "Personal Computers", "Carpet", "Glass", "Corrugated Cardboard", "Newspaper", "Phone Books", "Magazines", "Office Paper")
+
+energy <- c(206, 83, 20, 56, 53, 51, 43, 106, 2, 15, 16, 11, 11, 10)
+
+data <- tibble(material, energy)
+
+brks <- seq(0, 231, by = 25)
+
+data.cut <- cut(data$energy, breaks = brks, right = FALSE)
+
+data.freq <- table(data.cut)
+
+data.relfreq <- round(data.freq/length(energy), 2)
+
+data.cumfreq <- cumsum(data.freq)
+
+data.cumrelfreq <- round(data.cumfreq/nrow(data), 2)
+
+cbind(data.freq, data.relfreq, data.cumrelfreq)
+
+library(lattice)
+hist(data$energy)
 ```
 
