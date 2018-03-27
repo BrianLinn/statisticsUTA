@@ -354,7 +354,7 @@ energy <- c(206, 83, 20, 56, 53, 51, 43, 106, 2, 15, 16, 11, 11, 10)
 
 data <- data_frame(material, energy)
 ```
-
+###2.1 Freequency Tables
 __material__  
 `r material`
 __energy__  
@@ -379,7 +379,7 @@ energy.cut <- cut(energy, breaks = breaks, right = FALSE)
 data$bin <- cut(energy, breaks = breaks, right = FALSE)
 ```
 
-###Bin the Data
+####Bin the Data
 assign breaks of size 25 to the defined range  
 breaks <- seq(min(rng), max(rng) + by, by = by)
 
@@ -445,6 +445,7 @@ catD <- catG +
         theme(axis.text.x = element_text(angle = 75,
                                          hjust = 1)
         )
+catD
 ```
 
 
@@ -458,7 +459,7 @@ __categorical data__
 `r catData`
 
 
-```{r}
+```{r pieChart}
 pieData <- catData
 
 pieData$percent <- round(pieData$tonsDiscarded/sum(pieData$tonsDiscarded), 3) * 100
@@ -533,7 +534,7 @@ bottleBreaks <- seq_len(9)
 
 bottles.cut <- cut(averageBottles, breaks = bottleBreaks, right = FALSE)
 
-bottle.freq <- table(avgBottles.cut)
+bottle.freq <- table(bottles.cut)
 
 bottle.relfreq <- round(bottle.freq/length(averageBottles), 2)
 
@@ -591,5 +592,52 @@ cbind(data.freq, data.relfreq, data.cumrelfreq)
 
 library(lattice)
 hist(data$energy)
+s
 ```
 
+
+###2.4 Shapes of Distributions
+
+Bell shapes - unimodal - normally distributed (bell curve)
+
+```{r bell}
+set.seed(124)
+
+bell <- rnorm(n = 100, m = 10, sd = 2)
+
+hist(bell)
+plot(density(bell))
+```
+
+```{r uniform}
+
+uniform <- seq(1, 10, 1)
+
+hist(uniform)
+plot(density(uniform))
+```
+
+```{r right skewed}
+
+right <- c(1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,3,3,3,3,3,3,3,3,4,4,4,4,4,4,4,4,5,5,5,5,5,5,6,6,6,6,6,7,7,7,7,7,8,8,9)
+
+hist(right)
+plot(density(right))
+```
+
+```{r left}
+
+left <- c(1,2,2,3,3,4,4,5,5,5,6,6,6,6,6,7,7,7,7,7,7,8,8,8,8,8,8,8,8,8,8,8,8,8,9,9,9,9,9,9,9,9,9,9,9,9,9,9,10,10,10,10,10,10,10,10,10,10,10,10)
+
+hist(left)
+plot(density(left))
+```
+
+
+```{r undefined bimodal}
+
+bimodal <- c(1,2,3,4,4,4,4,5,6,7,8,9,9,9,9,9)
+
+hist(bimodal)
+plot(density(bimodal))
+```
